@@ -1,3 +1,4 @@
+import datetime
 from threading import Timer
 
 from flask import Flask
@@ -64,10 +65,13 @@ def data():
         elif 'home.water.sensor.alarm_off' in ret:
             water_off(all_sensors, all_rules)
 
-        sunset_time = get_sunset()
-        current_time = datetime.datetime.now().time()
-        if sunset_time < current_time:
-            # turn LEDs on
+        for rule in all_rules:
+            if rule.rule_id == 5 and rule.is_enabled:
+                sunset_time = get_sunset()
+                current_time = datetime.datetime.now().time()
+                if sunset_time < current_time:
+                    # turn LEDs on
+                    pass
 
     return ret
 
