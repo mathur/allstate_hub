@@ -8,15 +8,16 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script>
-    function openWindow() {
-
-    }
-
-    function closeWindow() {
-
-    }
+    $(document).ready(function(){
+      $("#openWindow").click(function(){
+          $.post("http://a6.cfapps.io/groups/4d949be1-92a8-4979-9221-dff26c1f1102/sensors/a4e2e132-2970-43b0-b781-dcf468a88ad8/data",
+          {"homeGarageOpen" : "string"},
+          function(data, status){
+              alert("hi");
+          });
+      });
+    });
   </script>
-
 </head>
 <body>
 
@@ -28,11 +29,11 @@
   <div class="row">
     <div class="col-sm-6">
       <h3>Window</h3>
-      <button type="button" class="btn btn-success" style="display: block; width: 100%;">Open</button>
+      <button id="openWindow" type="button" class="btn btn-success" style="display: block; width: 100%;">Open</button>
     </div>
     <div class="col-sm-6">
       <h3>&nbsp</h3>
-      <button type="button" class="btn btn-dange" style="display: block; width: 100%;">Close</button>
+      <button id="closeWindow" type="button" class="btn btn-dange" style="display: block; width: 100%;">Close</button>
     </div>
   </div>
   <div class="row">
