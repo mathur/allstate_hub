@@ -9,3 +9,5 @@ build
 *.egg-info
 _mailinglist
 .tox
+venv*
+venv/
