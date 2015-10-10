@@ -5,6 +5,7 @@ import nest
 from parse_rest.installation import Push
 from parse_rest.connection import register
 import requests
+import RPi.GPIO as GPIO
 import sendgrid
 
 from models import History, Rules, Sensors
@@ -85,6 +86,7 @@ def garage_closed(all_sensors, all_rules):
 
 def smoke_on(all_sensors, all_rules):
     smoke = True
+    GPIO.output(4, 1)
     for sensor in all_sensors:
         if sensor.name == 'Smoke':
             sensor.open = True
@@ -101,6 +103,7 @@ def smoke_on(all_sensors, all_rules):
 
 def smoke_off(all_sensors, all_rules):
     smoke = False
+    GPIO.output(4, 0)
     for sensor in all_sensors:
         if sensor.name == 'Smoke':
             sensor.open = False
@@ -108,6 +111,7 @@ def smoke_off(all_sensors, all_rules):
 
 def water_on(all_sensors, all_rules):
     water = True
+    GPIO.output(3, 1)
     for sensor in all_sensors:
         if sensor.name == 'Water':
             sensor.open = True
@@ -124,6 +128,7 @@ def water_on(all_sensors, all_rules):
 
 def water_off(all_sensors, all_rules):
     water = False
+    GPIO.output(3, 0)
     for sensor in all_sensors:
         if sensor.name == 'Water':
             sensor.open = False
@@ -131,6 +136,7 @@ def water_off(all_sensors, all_rules):
 
 def fire_on(all_sensors, all_rules):
     fire = True
+    GPIO.output(2, 1)
     for sensor in all_sensors:
         if sensor.name == 'Fire':
             sensor.open = True
@@ -147,6 +153,7 @@ def fire_on(all_sensors, all_rules):
 
 def fire_off(all_sensors, all_rules):
     water = False
+    GPIO.output(2, 0)
     for sensor in all_sensors:
         if sensor.name == 'Fire':
             sensor.open = False
@@ -163,6 +170,10 @@ prev_nest_mode_garage = None
 
 register(APPLICATION_ID, REST_API_KEY)
 sg = sendgrid.SendGridClient('mathur', 'lolallstate222')
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(2, GPIO.OUT)
+GPIO.setup(3, GPIO.OUT)
+GPIO.setup(4, GPIO.OUT)
 
 while(True):
     ret = requests.get('http://allstatehub.cfapps.io/data').content
