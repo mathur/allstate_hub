@@ -38,7 +38,7 @@
 
       $("#closeGarage").click(function(){
         $.ajax('http://a6.cfapps.io/groups/4d949be1-92a8-4979-9221-dff26c1f1102/sensors/a4e2e132-2970-43b0-b781-dcf468a88ad8/data',{
-            'data': JSON.stringify({"homeGarageOpen" : "string"}),
+            'data': JSON.stringify({"homeGarageClosed" : "string"}),
             'type': 'POST',
             'processData': false,
             'contentType': 'application/json'
@@ -116,7 +116,7 @@
     </div>
     <div class="col-sm-6">
       <h3>&nbsp</h3>
-      <button id="closeWindow" type="button" class="btn btn-dange" style="display: block; width: 100%;">Close</button>
+      <button id="closeWindow" type="button" class="btn btn-danger" style="display: block; width: 100%;">Close</button>
     </div>
   </div>
   <div class="row">
@@ -126,7 +126,7 @@
     </div>
     <div class="col-sm-6">
       <h3>&nbsp</h3>
-      <button id="closeGarage" type="button" class="btn btn-dange" style="display: block; width: 100%;">Close</button>
+      <button id="closeGarage" type="button" class="btn btn-danger" style="display: block; width: 100%;">Close</button>
     </div>
   </div>
   <div class="row">
@@ -136,7 +136,7 @@
     </div>
     <div class="col-sm-6">
       <h3>&nbsp</h3>
-      <button id="closeSmoke" type="button" class="btn btn-dange" style="display: block; width: 100%;">Silence</button>
+      <button id="closeSmoke" type="button" class="btn btn-danger" style="display: block; width: 100%;">Silence</button>
     </div>
   </div>
   <div class="row">
@@ -146,7 +146,7 @@
     </div>
     <div class="col-sm-6">
       <h3>&nbsp</h3>
-      <button id="closeFire" type="button" class="btn btn-dange" style="display: block; width: 100%;">Silence</button>
+      <button id="closeFire" type="button" class="btn btn-danger" style="display: block; width: 100%;">Silence</button>
     </div>
   </div>
   <div class="row">
@@ -156,7 +156,7 @@
     </div>
     <div class="col-sm-6">
       <h3>&nbsp</h3>
-      <button id="closeWater" type="button" class="btn btn-dange" style="display: block; width: 100%;">Silence</button>
+      <button id="closeWater" type="button" class="btn btn-danger" style="display: block; width: 100%;">Silence</button>
     </div>
   </div>
 </div>
