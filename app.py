@@ -63,7 +63,7 @@ def garage_opened(all_sensors, all_rules):
             sensor.save()
 
     for rule in all_rules:
-        if rule.rule_id == 1:
+        if rule.rule_id == 1 && rule.enabled == True:
             Push.message("You left a window open! Close it to avoid a security risk before leaving.", channels=["Notifications"])
 
 def garage_closed(all_sensors, all_rules):
