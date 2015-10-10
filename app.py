@@ -1,9 +1,10 @@
 from flask import Flask
 
+from parse_rest.installation import Push
 from parse_rest.connection import register
 import requests
 
-from models import Sensors
+from models import Rules, Sensors
 from settings_local import APPLICATION_ID, REST_API_KEY, MASTER_KEY
 
 app = Flask(__name__)
@@ -19,6 +20,7 @@ def data():
     requests.delete('http://allstatehub.cfapps.io/data')
 
     all_sensors = Sensors.Query.all()
+    all_rules = Rules.Query.all()
 
     if 'home.window.open' in ret:
         window_opened(all_sensors)
@@ -39,59 +41,63 @@ def data():
 
     return ret
 
-def window_opened(all_sensors):
+def window_opened(all_sensors, all_rules):
     window = True
     for sensor in all_sensors:
-        if sensor.name == 'window':
+        if sensor.name == 'Window':
             sensor.open = True
             sensor.save()
 
-def window_closed(all_sensors):
+def window_closed(all_sensors, all_rules):
     window = False
     for sensor in all_sensors:
-        if sensor.name == 'window':
+        if sensor.name == 'Window':
             sensor.open = False
             sensor.save()
 
-def garage_opened(all_sensors):
+def garage_opened(all_sensors, all_rules):
     garage = True
     for sensor in all_sensors:
-        if sensor.name == 'garage':
+        if sensor.name == 'Garage':
             sensor.open = True
             sensor.save()
 
-def garage_closed(all_sensors):
+    for rule in all_rules:
+        if rule.rule_id == 1:
+            Push.message("You left a window open! Close it to avoid a security risk before leaving.", channels=["Notifications"])
+
+def garage_closed(all_sensors, all_rules):
     garage = False
     for sensor in all_sensors:
-        if sensor.name == 'garage':
+        if sensor.name == 'Garage':
             sensor.open = False
             sensor.save()
 
-def smoke_on(all_sensors):
+def smoke_on(all_sensors, all_rules):
     smoke = True
     for sensor in all_sensors:
-        if sensor.name == 'smoke':
+        if sensor.name == 'Smoke':
             sensor.open = True
             sensor.save()
 
-def smoke_off(all_sensors):
+def smoke_off(all_sensors, all_rules):
     smoke = False
     for sensor in all_sensors:
-        if sensor.name == 'smoke':
+        if sensor.name == 'Smoke':
             sensor.open = False
             sensor.save()
 
-def water_on(all_sensors):
+def water_on(all_sensors, all_rules):
     water = True
     for sensor in all_sensors:
-        if sensor.name == 'water':
+        if sensor.name == 'Water':
             sensor.open = True
             sensor.save()
 
-def water_off(all_sensors):
+def water_off(all_sensors, all_rules):
     water = False
     for sensor in all_sensors:
-        if sensor.name == 'water':
+        if sensor.name == 'Water':
             sensor.open = False
             sensor.save()
 
