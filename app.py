@@ -5,10 +5,11 @@ import nest
 from parse_rest.installation import Push
 from parse_rest.connection import register
 import requests
+import sendgrid
 
 from models import History, Rules, Sensors
 from sunset import get_sunset
-from settings_local import APPLICATION_ID, REST_API_KEY, MASTER_KEY, username, password
+from settings_local import APPLICATION_ID, REST_API_KEY, MASTER_KEY, username, password, SENDGRID_USERNAME, SENDGRID_PASSWORD
 
 def window_opened(all_sensors, all_rules):
     window = True
@@ -48,10 +49,19 @@ def garage_opened(all_sensors, all_rules):
 
     for rule in all_rules:
         if rule.rule_id == 1 and rule.is_enabled:
-            message = 'You left a window open! Close it to avoid a security risk before leaving.'
-            Push.message(message, channels=["Notifications"])
-            history_item = History(Text=message)
+            msg = 'You left a window open! Close it to avoid a security risk before leaving.'
+            Push.message(msg, channels=["Notifications"])
+            history_item = History(Text=msg)
             history_item.save()
+
+            message = sendgrid.Mail()
+            message.add_to('Rohan Mathur <rohanmathur34@gmail.com>')
+            message.set_subject('Allstate Hub Notification')
+            message.set_text(msg)
+            message.set_from('Allstate Hub <hub@allstate.com>')
+            status, msg = sg.send(message)
+            print status
+            print msg
         elif rule.rule_id == 3 and rule.is_enabled:
             # napi = nest.Nest(username, password)
             # for device in napi.devices:
@@ -59,10 +69,19 @@ def garage_opened(all_sensors, all_rules):
             #     device.mode = 'off'
             print 'Nest mode set to off and previous state stored.'
         elif rule.rule_id == 4 and rule.is_enabled:
-            message = 'Make sure the alarm system is enabled!'
-            Push.message(message, channels=["Notifications"])
-            history_item = History(Text=message)
+            msg = 'Make sure the alarm system is enabled!'
+            Push.message(msg, channels=["Notifications"])
+            history_item = History(Text=msg)
             history_item.save()
+
+            message = sendgrid.Mail()
+            message.add_to('Rohan Mathur <rohanmathur34@gmail.com>')
+            message.set_subject('Allstate Hub Notification')
+            message.set_text(msg)
+            message.set_from('Allstate Hub <hub@allstate.com>')
+            status, msg = sg.send(message)
+            print status
+            print msg
 
 def garage_closed(all_sensors, all_rules):
     garage = False
@@ -115,6 +134,7 @@ prev_nest_mode = None
 prev_nest_mode_garage = None
 
 register(APPLICATION_ID, REST_API_KEY)
+sg = sendgrid.SendGridClient('SENDGRID_USERNAME', 'SENDGRID_PASSWORD')
 
 while(True):
     ret = requests.get('http://allstatehub.cfapps.io/data').content

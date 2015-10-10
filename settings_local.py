@@ -7,3 +7,7 @@ MASTER_KEY = "XuVa40YRhdT3z3Zmjp2Nl3CQADoVL3lBruLA5mEF"
 username = 'rohan@rmathur.com'
 password = 'allstatehub'
 token_cache = '~/.config/nest/cache'
+
+#sendgrid
+SENDGRID_USERNAME = 'mathur'
+SENDGRID_PASSWORD = 'abcdefgh1'

@@ -1,4 +1,4 @@
-flask==0.10
 python-nest
+sendgrid
 requests
 git+https://github.com/dgrtwo/ParsePy.git
