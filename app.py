@@ -53,15 +53,8 @@ def garage_opened(all_sensors, all_rules):
             Push.message(msg, channels=["Notifications"])
             history_item = History(Text=msg)
             history_item.save()
-
-            message = sendgrid.Mail()
-            message.add_to('Rohan Mathur <rohanmathur34@gmail.com>')
-            message.set_subject('Allstate Hub Notification')
-            message.set_text(msg)
-            message.set_from('Allstate Hub <hub@allstate.com>')
-            status, msg = sg.send(message)
-            print status
-            print msg
+            message = sendgrid.Mail(to='rohanmathur34@gmail.com', subject='Allstate Hub Notification', html='', text=msg, from_email='hub@allstate.com')
+            status, mersg = sg.send(message)
         elif rule.rule_id == 3 and rule.is_enabled:
             # napi = nest.Nest(username, password)
             # for device in napi.devices:
@@ -73,15 +66,8 @@ def garage_opened(all_sensors, all_rules):
             Push.message(msg, channels=["Notifications"])
             history_item = History(Text=msg)
             history_item.save()
-
-            message = sendgrid.Mail()
-            message.add_to('Rohan Mathur <rohanmathur34@gmail.com>')
-            message.set_subject('Allstate Hub Notification')
-            message.set_text(msg)
-            message.set_from('Allstate Hub <hub@allstate.com>')
-            status, msg = sg.send(message)
-            print status
-            print msg
+            message = sendgrid.Mail(to='rohanmathur34@gmail.com', subject='Allstate Hub Notification', html='', text=msg, from_email='hub@allstate.com')
+            status, mersg = sg.send(message)
 
 def garage_closed(all_sensors, all_rules):
     garage = False
@@ -134,7 +120,7 @@ prev_nest_mode = None
 prev_nest_mode_garage = None
 
 register(APPLICATION_ID, REST_API_KEY)
-sg = sendgrid.SendGridClient('SENDGRID_USERNAME', 'SENDGRID_PASSWORD')
+sg = sendgrid.SendGridClient('mathur', 'lolallstate222')
 
 while(True):
     ret = requests.get('http://allstatehub.cfapps.io/data').content

@@ -10,4 +10,4 @@ token_cache = '~/.config/nest/cache'
 
 #sendgrid
 SENDGRID_USERNAME = 'mathur'
-SENDGRID_PASSWORD = 'abcdefgh1'
+SENDGRID_PASSWORD = 'lolallstate222'
