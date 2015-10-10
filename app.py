@@ -90,6 +90,15 @@ def smoke_on(all_sensors, all_rules):
             sensor.open = True
             sensor.save()
 
+    for rule in all_rules:
+        if rule.rule_id == 5 and rule.is_enabled:
+            msg = 'Smoke alarm was triggered!'
+            Push.message(msg, channels=["Notifications"])
+            history_item = History(Text=msg)
+            history_item.save()
+            message = sendgrid.Mail(to='rohanmathur34@gmail.com', subject='Allstate Hub Notification', html='', text=msg, from_email='hub@allstate.com')
+            status, mersg = sg.send(message)
+
 def smoke_off(all_sensors, all_rules):
     smoke = False
     for sensor in all_sensors:
@@ -104,6 +113,15 @@ def water_on(all_sensors, all_rules):
             sensor.open = True
             sensor.save()
 
+    for rule in all_rules:
+        if rule.rule_id == 5 and rule.is_enabled:
+            msg = 'Flood detector was triggered!'
+            Push.message(msg, channels=["Notifications"])
+            history_item = History(Text=msg)
+            history_item.save()
+            message = sendgrid.Mail(to='rohanmathur34@gmail.com', subject='Allstate Hub Notification', html='', text=msg, from_email='hub@allstate.com')
+            status, mersg = sg.send(message)
+
 def water_off(all_sensors, all_rules):
     water = False
     for sensor in all_sensors:
@@ -111,10 +129,34 @@ def water_off(all_sensors, all_rules):
             sensor.open = False
             sensor.save()
 
+def fire_on(all_sensors, all_rules):
+    fire = True
+    for sensor in all_sensors:
+        if sensor.name == 'Fire':
+            sensor.open = True
+            sensor.save()
+
+    for rule in all_rules:
+        if rule.rule_id == 5 and rule.is_enabled:
+            msg = 'Fire alarm was triggered!'
+            Push.message(msg, channels=["Notifications"])
+            history_item = History(Text=msg)
+            history_item.save()
+            message = sendgrid.Mail(to='rohanmathur34@gmail.com', subject='Allstate Hub Notification', html='', text=msg, from_email='hub@allstate.com')
+            status, mersg = sg.send(message)
+
+def fire_off(all_sensors, all_rules):
+    water = False
+    for sensor in all_sensors:
+        if sensor.name == 'Fire':
+            sensor.open = False
+            sensor.save()
+
 window = False
 garage = False
 smoke = False
 water = False
+fire = False
 
 prev_nest_mode = None
 prev_nest_mode_garage = None
@@ -143,6 +185,10 @@ while(True):
             print 'Flood sensor detecting flooding'
         elif 'home.water.sensor.alarm_off' in ret:
             print 'Flood sensor off'
+        elif 'home.fire.alarm_on' in ret:
+            print 'Fire alarm off'
+        elif 'home.fire.alarm_off' in ret:
+            print 'Fire alarm on'
 
     all_sensors = Sensors.Query.all()
     all_rules = Rules.Query.all()
@@ -163,6 +209,10 @@ while(True):
         water_on(all_sensors, all_rules)
     elif 'home.water.sensor.alarm_off' in ret:
         water_off(all_sensors, all_rules)
+    elif 'home.fire.alarm_on' in ret:
+        fire_on(all_sensors, all_rules)
+    elif 'home.fire.alarm_off' in ret:
+        fire_off(all_sensors, all_rules)
 
     for rule in all_rules:
         if rule.rule_id == 5 and rule.is_enabled:
