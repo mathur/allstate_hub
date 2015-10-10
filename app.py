@@ -91,7 +91,7 @@ def smoke_on(all_sensors, all_rules):
             sensor.save()
 
     for rule in all_rules:
-        if rule.rule_id == 5 and rule.is_enabled:
+        if rule.rule_id == 6 and rule.is_enabled:
             msg = 'Smoke alarm was triggered!'
             Push.message(msg, channels=["Notifications"])
             history_item = History(Text=msg)
@@ -114,7 +114,7 @@ def water_on(all_sensors, all_rules):
             sensor.save()
 
     for rule in all_rules:
-        if rule.rule_id == 5 and rule.is_enabled:
+        if rule.rule_id == 6 and rule.is_enabled:
             msg = 'Flood detector was triggered!'
             Push.message(msg, channels=["Notifications"])
             history_item = History(Text=msg)
@@ -137,7 +137,7 @@ def fire_on(all_sensors, all_rules):
             sensor.save()
 
     for rule in all_rules:
-        if rule.rule_id == 5 and rule.is_enabled:
+        if rule.rule_id == 6 and rule.is_enabled:
             msg = 'Fire alarm was triggered!'
             Push.message(msg, channels=["Notifications"])
             history_item = History(Text=msg)
