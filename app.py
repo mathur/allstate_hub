@@ -6,7 +6,7 @@ from parse_rest.installation import Push
 from parse_rest.connection import register
 import requests
 
-from models import Rules, Sensors
+from models import History, Rules, Sensors
 from sunset import get_sunset
 from settings_local import APPLICATION_ID, REST_API_KEY, MASTER_KEY, username, password
 
@@ -65,7 +65,9 @@ def data():
             water_off(all_sensors, all_rules)
 
         sunset_time = get_sunset()
-        #print sunset_time
+        current_time = datetime.datetime.now().time()
+        if sunset_time < current_time:
+            # turn LEDs on
 
     return ret
 
@@ -107,7 +109,10 @@ def garage_opened(all_sensors, all_rules):
 
     for rule in all_rules:
         if rule.rule_id == 1 and rule.is_enabled:
-            Push.message("You left a window open! Close it to avoid a security risk before leaving.", channels=["Notifications"])
+            message = 'You left a window open! Close it to avoid a security risk before leaving.'
+            Push.message(message, channels=["Notifications"])
+            history_item = History(Text=message)
+            history_item.save()
         elif rule.rule_id == 3 and rule.is_enabled:
             # napi = nest.Nest(username, password)
             # for device in napi.devices:
@@ -115,7 +120,10 @@ def garage_opened(all_sensors, all_rules):
             #     device.mode = 'off'
             print 'Nest mode set to off and previous state stored.'
         elif rule.rule_id == 4 and rule.is_enabled:
-            Push.message("Make sure the alarm system is enabled!", channels=["Notifications"])
+            message = 'Make sure the alarm system is enabled!'
+            Push.message(message, channels=["Notifications"])
+            history_item = History(Text=message)
+            history_item.save()
 
 def garage_closed(all_sensors, all_rules):
     garage = False
