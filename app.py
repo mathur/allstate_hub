@@ -197,9 +197,9 @@ while(True):
         elif 'home.water.sensor.alarm_off' in ret:
             print 'Flood sensor off'
         elif 'home.fire.alarm_on' in ret:
-            print 'Fire alarm off'
-        elif 'home.fire.alarm_off' in ret:
             print 'Fire alarm on'
+        elif 'home.fire.alarm_off' in ret:
+            print 'Fire alarm off'
 
     all_sensors = Sensors.Query.all()
     all_rules = Rules.Query.all()
