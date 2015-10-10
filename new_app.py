@@ -22,50 +22,32 @@ prev_nest_mode_garage = None
 
 @app.route('/data')
 def data():
-    while(True):
-        ret = requests.get('http://allstatehub.cfapps.io/data').content
-        requests.delete('http://allstatehub.cfapps.io/data')
 
-        if ret != '[]':
-            if 'home.window.open' in ret:
-                print 'Window opened'
-            elif 'home.window.closed' in ret:
-                print 'Window closed'
-            elif 'home.garage.open' in ret:
-                print 'Garage door opened'
-            elif 'home.garage.closed' in ret:
-                print 'Garage door closed'
-            elif 'home.smoke.alarm_on' in ret:
-                print 'Smoke alarm on'
-            elif 'home.smoke.alarm_off' in ret:
-                print 'Smoke alarm off'
-            elif 'home.water.sensor.alarm_on' in ret:
-                print 'Flood sensor detecting flooding'
-            elif 'home.water.sensor.alarm_off' in ret:
-                print 'Flood sensor off'
+    ret = requests.get('http://allstatehub.cfapps.io/data').content
+    requests.delete('http://allstatehub.cfapps.io/data')
 
-        all_sensors = Sensors.Query.all()
-        all_rules = Rules.Query.all()
+    all_sensors = Sensors.Query.all()
+    all_rules = Rules.Query.all()
 
-        if 'home.window.open' in ret:
-            window_opened(all_sensors, all_rules)
-        elif 'home.window.closed' in ret:
-            window_closed(all_sensors, all_rules)
-        elif 'home.garage.open' in ret:
-            garage_opened(all_sensors, all_rules)
-        elif 'home.garage.closed' in ret:
-            garage_closed(all_sensors, all_rules)
-        elif 'home.smoke.alarm_on' in ret:
-            smoke_on(all_sensors, all_rules)
-        elif 'home.smoke.alarm_off' in ret:
-            smoke_off(all_sensors, all_rules)
-        elif 'home.water.sensor.alarm_on' in ret:
-            water_on(all_sensors, all_rules)
-        elif 'home.water.sensor.alarm_off' in ret:
-            water_off(all_sensors, all_rules)
+    if 'home.window.open' in ret:
+        window_opened(all_sensors, all_rules)
+    elif 'home.window.closed' in ret:
+        window_closed(all_sensors, all_rules)
+    elif 'home.garage.open' in ret:
+        garage_opened(all_sensors, all_rules)
+    elif 'home.garage.closed' in ret:
+        garage_closed(all_sensors, all_rules)
+    elif 'home.smoke.alarm_on' in ret:
+        smoke_on(all_sensors, all_rules)
+    elif 'home.smoke.alarm_off' in ret:
+        smoke_off(all_sensors, all_rules)
+    elif 'home.water.sensor.alarm_on' in ret:
+        water_on(all_sensors, all_rules)
+    elif 'home.water.sensor.alarm_off' in ret:
+        water_off(all_sensors, all_rules)
 
-        sunset_time = get_sunset()
-        #print sunset_time
+    sunset_time = get_sunset()
+    print sunset_time
 
     return ret
 
