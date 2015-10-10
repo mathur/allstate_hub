@@ -54,10 +54,10 @@ def window_opened(all_sensors, all_rules):
 
     for rule in all_rules:
         if rule.rule_id == 2 and rule.is_enabled:
-            napi = nest.Nest(username, password)
-            for device in napi.devices:
-                prev_nest_mode = device.mode
-                device.mode = 'off'
+            # napi = nest.Nest(username, password)
+            # for device in napi.devices:
+            #     prev_nest_mode = device.mode
+            #     device.mode = 'off'
             print 'Nest mode set to off and previous state stored.'
 
 def window_closed(all_sensors, all_rules):
@@ -69,9 +69,9 @@ def window_closed(all_sensors, all_rules):
 
     for rule in all_rules:
         if rule.rule_id == 2 and rule.is_enabled:
-            napi = nest.Nest(username, password)
-            for device in napi.devices:
-                device.mode = prev_nest_mode
+            # napi = nest.Nest(username, password)
+            # for device in napi.devices:
+            #     device.mode = prev_nest_mode
             print 'Mode restored to Nest.'
 
 def garage_opened(all_sensors, all_rules):
@@ -85,10 +85,10 @@ def garage_opened(all_sensors, all_rules):
         if rule.rule_id == 1 and rule.is_enabled:
             Push.message("You left a window open! Close it to avoid a security risk before leaving.", channels=["Notifications"])
         elif rule.rule_id == 3 and rule.is_enabled:
-            napi = nest.Nest(username, password)
-            for device in napi.devices:
-                prev_nest_mode_garage = device.mode
-                device.mode = 'off'
+            # napi = nest.Nest(username, password)
+            # for device in napi.devices:
+            #     prev_nest_mode_garage = device.mode
+            #     device.mode = 'off'
             print 'Nest mode set to off and previous state stored.'
         elif rule.rule_id == 4 and rule.is_enabled:
             Push.message("Make sure the alarm system is enabled!", channels=["Notifications"])
@@ -102,9 +102,9 @@ def garage_closed(all_sensors, all_rules):
 
     for rule in all_rules:
         if rule.rule_id == 3 and rule.is_enabled:
-            napi = nest.Nest(username, password)
-            for device in napi.devices:
-                device.mode = prev_nest_mode_garage
+            # napi = nest.Nest(username, password)
+            # for device in napi.devices:
+            #     device.mode = prev_nest_mode_garage
             print 'Mode restored to Nest.'
 
 def smoke_on(all_sensors, all_rules):
