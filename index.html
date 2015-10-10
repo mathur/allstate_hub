@@ -10,13 +10,96 @@
   <script>
     $(document).ready(function(){
       $("#openWindow").click(function(){
-          $.post("http://a6.cfapps.io/groups/4d949be1-92a8-4979-9221-dff26c1f1102/sensors/a4e2e132-2970-43b0-b781-dcf468a88ad8/data",
-          {"homeGarageOpen" : "string"},
-          function(data, status){
-              alert("hi");
-          });
+        $.ajax('http://a6.cfapps.io/groups/4d949be1-92a8-4979-9221-dff26c1f1102/sensors/a4e2e132-2970-43b0-b781-dcf468a88ad8/data',{
+            'data': JSON.stringify({"homeWindowOpen" : "string"}),
+            'type': 'POST',
+            'processData': false,
+            'contentType': 'application/json'
+        });
+      });
+
+      $("#closeWindow").click(function(){
+        $.ajax('http://a6.cfapps.io/groups/4d949be1-92a8-4979-9221-dff26c1f1102/sensors/a4e2e132-2970-43b0-b781-dcf468a88ad8/data',{
+            'data': JSON.stringify({"homeWindowClosed" : "string"}),
+            'type': 'POST',
+            'processData': false,
+            'contentType': 'application/json'
+        });
+      });
+
+      $("#openGarage").click(function(){
+        $.ajax('http://a6.cfapps.io/groups/4d949be1-92a8-4979-9221-dff26c1f1102/sensors/a4e2e132-2970-43b0-b781-dcf468a88ad8/data',{
+            'data': JSON.stringify({"homeGarageOpen" : "string"}),
+            'type': 'POST',
+            'processData': false,
+            'contentType': 'application/json'
+        });
+      });
+
+      $("#closeGarage").click(function(){
+        $.ajax('http://a6.cfapps.io/groups/4d949be1-92a8-4979-9221-dff26c1f1102/sensors/a4e2e132-2970-43b0-b781-dcf468a88ad8/data',{
+            'data': JSON.stringify({"homeGarageOpen" : "string"}),
+            'type': 'POST',
+            'processData': false,
+            'contentType': 'application/json'
+        });
+      });
+
+      $("#openSmoke").click(function(){
+        $.ajax('http://a6.cfapps.io/groups/4d949be1-92a8-4979-9221-dff26c1f1102/sensors/a4e2e132-2970-43b0-b781-dcf468a88ad8/data',{
+            'data': JSON.stringify({"homeSmokeAlarmOn" : "string"}),
+            'type': 'POST',
+            'processData': false,
+            'contentType': 'application/json'
+        });
+      });
+
+      $("#closeSmoke").click(function(){
+        $.ajax('http://a6.cfapps.io/groups/4d949be1-92a8-4979-9221-dff26c1f1102/sensors/a4e2e132-2970-43b0-b781-dcf468a88ad8/data',{
+            'data': JSON.stringify({"homeSmokeAlarmOff" : "string"}),
+            'type': 'POST',
+            'processData': false,
+            'contentType': 'application/json'
+        });
+      });
+
+      $("#openFire").click(function(){
+        $.ajax('http://a6.cfapps.io/groups/4d949be1-92a8-4979-9221-dff26c1f1102/sensors/a4e2e132-2970-43b0-b781-dcf468a88ad8/data',{
+            'data': JSON.stringify({"homeFireAlarmOn" : "string"}),
+            'type': 'POST',
+            'processData': false,
+            'contentType': 'application/json'
+        });
+      });
+
+      $("#closeFire").click(function(){
+        $.ajax('http://a6.cfapps.io/groups/4d949be1-92a8-4979-9221-dff26c1f1102/sensors/a4e2e132-2970-43b0-b781-dcf468a88ad8/data',{
+            'data': JSON.stringify({"homeFireAlarmOff" : "string"}),
+            'type': 'POST',
+            'processData': false,
+            'contentType': 'application/json'
+        });
+      });
+
+      $("#openWater").click(function(){
+        $.ajax('http://a6.cfapps.io/groups/4d949be1-92a8-4979-9221-dff26c1f1102/sensors/a4e2e132-2970-43b0-b781-dcf468a88ad8/data',{
+            'data': JSON.stringify({"homeWaterSensorAlarmOn" : "string"}),
+            'type': 'POST',
+            'processData': false,
+            'contentType': 'application/json'
+        });
+      });
+
+      $("#closeWater").click(function(){
+        $.ajax('http://a6.cfapps.io/groups/4d949be1-92a8-4979-9221-dff26c1f1102/sensors/a4e2e132-2970-43b0-b781-dcf468a88ad8/data',{
+            'data': JSON.stringify({"homeWaterSensorAlarmOff" : "string"}),
+            'type': 'POST',
+            'processData': false,
+            'contentType': 'application/json'
+        });
       });
     });
+
   </script>
 </head>
 <body>
@@ -39,41 +122,41 @@
   <div class="row">
     <div class="col-sm-6">
       <h3>Garage</h3>
-      <button type="button" class="btn btn-success" style="display: block; width: 100%;">Open</button>
+      <button id="openGarage" type="button" class="btn btn-success" style="display: block; width: 100%;">Open</button>
     </div>
     <div class="col-sm-6">
       <h3>&nbsp</h3>
-      <button type="button" class="btn btn-dange" style="display: block; width: 100%;">Close</button>
+      <button id="closeGarage" type="button" class="btn btn-dange" style="display: block; width: 100%;">Close</button>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-6">
       <h3>Smoke Alarm</h3>
-      <button type="button" class="btn btn-success" style="display: block; width: 100%;">Trigger</button>
+      <button id="openSmoke" type="button" class="btn btn-success" style="display: block; width: 100%;">Trigger</button>
     </div>
     <div class="col-sm-6">
       <h3>&nbsp</h3>
-      <button type="button" class="btn btn-dange" style="display: block; width: 100%;">Silence</button>
+      <button id="closeSmoke" type="button" class="btn btn-dange" style="display: block; width: 100%;">Silence</button>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-6">
       <h3>Fire Alarm</h3>
-      <button type="button" class="btn btn-success" style="display: block; width: 100%;">Trigger</button>
+      <button id="openFire" type="button" class="btn btn-success" style="display: block; width: 100%;">Trigger</button>
     </div>
     <div class="col-sm-6">
       <h3>&nbsp</h3>
-      <button type="button" class="btn btn-dange" style="display: block; width: 100%;">Silence</button>
+      <button id="closeFire" type="button" class="btn btn-dange" style="display: block; width: 100%;">Silence</button>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-6">
       <h3>Water Sensor</h3>
-      <button type="button" class="btn btn-success" style="display: block; width: 100%;">Trigger</button>
+      <button id="openWater" type="button" class="btn btn-success" style="display: block; width: 100%;">Trigger</button>
     </div>
     <div class="col-sm-6">
       <h3>&nbsp</h3>
-      <button type="button" class="btn btn-dange" style="display: block; width: 100%;">Silence</button>
+      <button id="closeWater" type="button" class="btn btn-dange" style="display: block; width: 100%;">Silence</button>
     </div>
   </div>
 </div>
