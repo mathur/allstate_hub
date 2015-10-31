@@ -1,13 +1,13 @@
 # parse
-APPLICATION_ID = "415yXxeqG8igfalXqo75kyOw45s4AbGU2nVbIxhp"
-REST_API_KEY = "MIunMFDUbvQYU15Mn8oOsieWii5CA1VRjtc35JwS"
-MASTER_KEY = "XuVa40YRhdT3z3Zmjp2Nl3CQADoVL3lBruLA5mEF"
+APPLICATION_ID = ""
+REST_API_KEY = ""
+MASTER_KEY = ""
 
 # nest
-username = 'rohan@rmathur.com'
-password = 'allstatehub'
+username = ''
+password = ''
 token_cache = '~/.config/nest/cache'
 
 #sendgrid
-SENDGRID_USERNAME = 'mathur'
-SENDGRID_PASSWORD = 'lolallstate222'
+SENDGRID_USERNAME = ''
+SENDGRID_PASSWORD = ''
